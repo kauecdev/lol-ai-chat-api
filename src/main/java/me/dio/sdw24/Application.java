@@ -3,10 +3,13 @@ package me.dio.sdw24;
 import me.dio.sdw24.application.AskChampionUseCase;
 import me.dio.sdw24.application.ListChampionsUseCase;
 import me.dio.sdw24.domain.ports.ChampionRepository;
+import me.dio.sdw24.domain.ports.GenerativeAiService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
+@EnableFeignClients
 @SpringBootApplication
 public class Application {
 
@@ -20,7 +23,7 @@ public class Application {
 	}
 
 	@Bean
-	public AskChampionUseCase provideAskChampionUseCase(ChampionRepository championRepository) {
-		return new AskChampionUseCase(championRepository);
+	public AskChampionUseCase provideAskChampionUseCase(ChampionRepository championRepository, GenerativeAiService generativeAiService) {
+		return new AskChampionUseCase(championRepository, generativeAiService);
 	}
 }
